@@ -1,11 +1,13 @@
 import { View, Text } from 'react-native';
-import React from 'react';
+import React, { isValidElement } from 'react';
 import type { TableCellProps } from './types';
 
 const TableCell = (viewProps: TableCellProps) => {
   const {
     data,
     width,
+    align,
+    isLastCell,
     borderColor = '#333',
     borderWidth = 1,
     textStyle,
@@ -16,13 +18,27 @@ const TableCell = (viewProps: TableCellProps) => {
       style={{
         width: width,
         borderColor: borderColor,
-        borderEndWidth: borderWidth,
+        borderEndWidth: isLastCell ? 0 : borderWidth,
         paddingHorizontal: 6,
         paddingVertical: 4,
         justifyContent: 'center',
       }}
     >
-      <Text style={[{ width: '100%' }, textStyle]}>{data}</Text>
+      {isValidElement(data) ? (
+        data
+      ) : (
+        <Text
+          style={[
+            { width: '100%' },
+            textStyle,
+            {
+              textAlign: align,
+            },
+          ]}
+        >
+          {data}
+        </Text>
+      )}
     </View>
   );
 };

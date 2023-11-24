@@ -1,18 +1,37 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-table-element';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import Table from '../../src/Table';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
-
-  React.useEffect(() => {
-    multiply(3, 7).then(setResult);
-  }, []);
-
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <ScrollView horizontal>
+        <View>
+          <Table
+            containerStyle={{ margin: 10 }}
+            header={['#', 'Fullname', 'Fee']}
+            columnsWidth={[50, 200, 200]}
+            columnsAlign={['center', 'left', 'right']}
+            data={[
+              [1, 'John Smith', 600],
+              [2, 'Adam Victor', 925],
+            ]}
+            borderColor="#000"
+            borderWidth={1}
+            headerStyle={{
+              backgroundColor: '#2168db',
+            }}
+            headerTextStyle={{
+              fontWeight: 'bold',
+              color: '#fff',
+            }}
+            textStyle={{
+              color: '#333',
+            }}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -20,12 +39,5 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
   },
 });

@@ -6,6 +6,7 @@ import type { TableRowProps } from './types';
 const TableRow = (viewProps: TableRowProps) => {
   const {
     data,
+    isLastRow,
     columnsWidth,
     columnsAlign,
     borderColor = '#333',
@@ -15,10 +16,22 @@ const TableRow = (viewProps: TableRowProps) => {
   } = viewProps;
 
   return (
-    <View style={[style]}>
+    <View
+      style={[
+        {
+          flexDirection: 'row',
+          borderColor: borderColor,
+          borderBottomWidth: isLastRow ? 0 : borderWidth,
+          backgroundColor: '#fff',
+        },
+        style,
+      ]}
+    >
       {data.map((dataItem, dataIndex) => {
         return (
           <TableCell
+            key={dataIndex}
+            isLastCell={dataIndex === data.length - 1}
             width={columnsWidth[dataIndex] || 10}
             borderColor={borderColor}
             borderWidth={borderWidth}

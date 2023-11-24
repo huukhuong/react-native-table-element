@@ -13,6 +13,7 @@ const Table = (viewProps: TableProps) => {
     borderWidth = 1,
     containerStyle,
     headerStyle,
+    headerTextStyle,
     rowStyle,
     textStyle,
   } = viewProps;
@@ -23,17 +24,22 @@ const Table = (viewProps: TableProps) => {
         {
           borderColor: borderColor,
           borderWidth: borderWidth,
+          width: columnsWidth.reduce((pre, cur) => (pre += cur)) + borderWidth,
         },
         containerStyle,
       ]}
     >
       <TableRow
         data={header}
+        isLastRow={false}
         columnsWidth={columnsWidth}
         borderColor={borderColor}
         borderWidth={borderWidth}
-        style={headerStyle}
-        textStyle={textStyle}
+        style={[
+          headerStyle,
+          { borderBottomWidth: borderWidth, borderColor: borderColor },
+        ]}
+        textStyle={[textStyle, headerTextStyle]}
         columnsAlign={Array.from(Array(columnsWidth.length)).fill('center')}
       />
 
@@ -41,6 +47,7 @@ const Table = (viewProps: TableProps) => {
         return (
           <TableRow
             key={rowIndex}
+            isLastRow={rowIndex === data.length - 1}
             columnsWidth={columnsWidth}
             columnsAlign={columnsAlign}
             data={row}
