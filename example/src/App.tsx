@@ -1,7 +1,6 @@
 import * as React from 'react';
-
 import { ScrollView, StyleSheet, View } from 'react-native';
-import Table from '../../src/Table';
+import Table from 'react-native-table-element';
 
 export default function App() {
   return (
@@ -10,12 +9,18 @@ export default function App() {
         <View>
           <Table
             containerStyle={{ margin: 10 }}
-            header={['#', 'Fullname', 'Fee']}
-            columnsWidth={[50, 200, 200]}
-            columnsAlign={['center', 'left', 'right']}
+            header={['#', 'Song', 'Artist', 'Year']}
+            columnsWidth={[30, 200, 150, 50]}
+            columnsAlign={['center', 'left', 'left', 'right']}
             data={[
-              [1, 'John Smith', 600],
-              [2, 'Adam Victor', 925],
+              [
+                1,
+                'The Sliding Mr. Bones (Next Stop, Pottersville)',
+                'Malcolm Lockyer',
+                1961,
+              ],
+              [2, 'Witchy Woman', 'The Eagles', 1972],
+              [2, 'Shining Star', 'Earth, Wind, and Fire', 1975],
             ]}
             borderColor="#000"
             borderWidth={1}
@@ -39,5 +44,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
 });
